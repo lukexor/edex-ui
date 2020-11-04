@@ -34,7 +34,7 @@ class RAMwatcher {
     this.updateInfo();
     this.infoUpdater = setInterval(() => {
       this.updateInfo();
-    }, 1500);
+    }, 5000);
   }
   updateInfo() {
     window.si.mem().then((data) => {

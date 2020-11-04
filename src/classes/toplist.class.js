@@ -14,7 +14,7 @@ class Toplist {
     this.updateList();
     this.listUpdater = setInterval(() => {
       this.updateList();
-    }, 2000);
+    }, 5000);
   }
   updateList() {
     window.si.processes().then((data) => {

@@ -26,7 +26,7 @@ class HardwareInspector {
     this.updateInfo();
     this.infoUpdater = setInterval(() => {
       this.updateInfo();
-    }, 20000);
+    }, 600000);
   }
   updateInfo() {
     window.si.system().then((d) => {
