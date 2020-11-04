@@ -1,0 +1,46 @@
+{
+  "colors": {
+    "r": 170,
+    "g": 207,
+    "b": 209,
+    "black": "#000000",
+    "red": "#BF616A",
+    "green": "#A3BE8C",
+    "yellow": "#EBCB8B",
+    "blue": "#81A1C1",
+    "magenta": "#B48EAD",
+    "cyan": "#88C0D0",
+    "white": "#E5E9F0",
+    "lightBlack": "#05080d",
+    "light_black": "#05080d",
+    "lightRed": "#BF616A",
+    "lightGreen": "#A3BE8C",
+    "lightYellow": "#EBCB8B",
+    "lightBlue": "#81A1C1",
+    "lightMagenta": "#B48EAD",
+    "lightCyan": "#8FBCBB",
+    "lightWhite": "#ECEFF4",
+    "grey": "#262828"
+  },
+  "cssvars": {
+    "font_main": "United Sans Medium",
+    "font_main_light": "United Sans Light"
+  },
+  "terminal": {
+    "fontFamily": "Fira Mono",
+    "cursorStyle": "block",
+    "foreground": "#aacfd1",
+    "background": "#05080d",
+    "cursor": "#aacfd1",
+    "cursorAccent": "#aacfd1",
+    "selection": "rgba(170,207,209,0.3)",
+    "colorFilter": ["rotate(180)", "saturate(0.5)", "mix(0.7)"]
+  },
+  "globe": {
+    "base": "#000000",
+    "marker": "#aacfd1",
+    "pin": "#aacfd1",
+    "satellite": "#aacfd1"
+  },
+  "injectCSS": "section#main_shell{height:94%;align-self:flex-start;} section#main_shell .terminal{height:100%;} section#filesystem{display:none} section#keyboard{display:none;}"
+}
