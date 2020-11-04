@@ -724,9 +724,20 @@ window.toggleMaxShell = async () => {
   }
 };
 
+const closeModal = (title) => {
+  const modal = Object.values(window.modals).find((m) => m.title === title);
+  if (modal) {
+    modal.close();
+  }
+};
+
 // Settings editor
-window.openSettings = async () => {
-  if (document.getElementById("settingsEditor")) return;
+window.toggleSettings = async () => {
+  const title = `Settings <i>(v${electron.remote.app.getVersion()})</i>`;
+  if (document.getElementById("settingsEditor")) {
+    closeModal(title);
+    return;
+  }
 
   // Build lists of available keyboards, themes, monitors
   let keyboards, themes, monitors, ifaces;
@@ -757,7 +768,7 @@ window.openSettings = async () => {
   new Modal(
     {
       type: "custom",
-      title: `Settings <i>(v${electron.remote.app.getVersion()})</i>`,
+      title,
       html: `<table id="settingsEditor">
                     <tr>
                         <th>Key</th>
@@ -1083,8 +1094,12 @@ window.toggleFullScreen = () => {
 };
 
 // Display available keyboard shortcuts and custom shortcuts helper
-window.openShortcutsHelp = () => {
-  if (document.getElementById("settingsEditor")) return;
+window.toggleShortcutsHelp = () => {
+  const title = `Available Keyboard Shortcuts <i>(v${electron.remote.app.getVersion()})</i>`;
+  if (document.getElementById("settingsEditor")) {
+    closeModal(title);
+    return;
+  }
 
   const shortcutsDefinition = {
     COPY: "Copy selected buffer from the terminal.",
@@ -1146,7 +1161,7 @@ window.openShortcutsHelp = () => {
   new Modal(
     {
       type: "custom",
-      title: `Available Keyboard Shortcuts <i>(v${electron.remote.app.getVersion()})</i>`,
+      title,
       html: `<h5>Using either the on-screen or a physical keyboard, you can use the following shortcuts:</h5>
                 <details open id="shortcutsHelpAccordeon1">
                     <summary>Emulator shortcuts</summary>
@@ -1252,10 +1267,10 @@ window.useAppShortcut = (action) => {
       window.toggleMaxShell();
       return true;
     case "SETTINGS":
-      window.openSettings();
+      window.toggleSettings();
       return true;
     case "SHORTCUTS":
-      window.openShortcutsHelp();
+      window.toggleShortcutsHelp();
       return true;
     case "FUZZY_SEARCH":
       window.activeFuzzyFinder = new FuzzyFinder();

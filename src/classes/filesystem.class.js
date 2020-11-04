@@ -441,10 +441,10 @@ class FilesystemDisplay {
           cmd = `window.remakeKeyboard('${e.name.slice(0, -5)}')`;
         }
         if (e.type === "edex-settings") {
-          cmd = `window.openSettings()`;
+          cmd = `window.toggleSettings()`;
         }
         if (e.type === "edex-shortcuts") {
-          cmd = `window.openShortcutsHelp()`;
+          cmd = `window.toggleShortcutsHelp()`;
         }
 
         let icon = "";
