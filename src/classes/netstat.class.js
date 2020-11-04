@@ -164,6 +164,7 @@ class Netstat {
             )
             .on("error", (e) => {
               // Drop it
+              console.warn(e);
             });
         } else if (this.runsBeforeGeoIPUpdate !== 0) {
           this.runsBeforeGeoIPUpdate = this.runsBeforeGeoIPUpdate - 1;

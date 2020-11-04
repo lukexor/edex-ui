@@ -5,6 +5,7 @@ section#keyboard {
   width: 55.5vw;
   position: relative;
   top: -0.925vh;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 1, 1);
 }
 
 section#keyboard[data-password-mode="true"] {

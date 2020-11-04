@@ -38,8 +38,13 @@ class RAMwatcher {
   }
   updateInfo() {
     window.si.mem().then((data) => {
-      if (data.free + data.used > data.total)
-        throw "RAM Watcher Error: Bad memory values";
+      if (data.free + data.used > data.total) {
+        console.warn("RAM Watcher Error: Bad memory values:");
+        console.warn(`used: ${data.used}`);
+        console.warn(`free: ${data.free}`);
+        console.warn(`total: ${data.total}`);
+        return;
+      }
 
       // Convert the data for the 440-points grid
       let active = Math.round((440 * data.active) / data.total);

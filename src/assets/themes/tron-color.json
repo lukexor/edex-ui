@@ -33,14 +33,12 @@
     "background": "#05080d",
     "cursor": "#aacfd1",
     "cursorAccent": "#aacfd1",
-    "selection": "rgba(170,207,209,0.3)",
-    "colorFilter": ["rotate(180)", "saturate(0.5)", "mix(0.7)"]
+    "selection": "rgba(170,207,209,0.3)"
   },
   "globe": {
     "base": "#000000",
     "marker": "#aacfd1",
     "pin": "#aacfd1",
     "satellite": "#aacfd1"
-  },
-  "injectCSS": "section#main_shell{height:94%;align-self:flex-start;} section#main_shell .terminal{height:100%;} section#filesystem{display:none} section#keyboard{display:none;}"
+  }
 }

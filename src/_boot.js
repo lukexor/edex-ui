@@ -135,6 +135,12 @@ if (!fs.existsSync(shortcutsFile)) {
         { type: "app", trigger: "Ctrl+X", action: "TAB_X", enabled: true },
         {
           type: "app",
+          trigger: "Ctrl+Shift+M",
+          action: "MAX_SHELL",
+          enabled: true,
+        },
+        {
+          type: "app",
           trigger: "Ctrl+Shift+S",
           action: "SETTINGS",
           enabled: true,

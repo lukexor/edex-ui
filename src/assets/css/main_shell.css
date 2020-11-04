@@ -1,7 +1,7 @@
 section#main_shell {
   width: 65%;
   height: 60.3%;
-  margin-top: 1.39vh;
+  margin-top: 1.8vh;
   padding: 0.74vh;
   /* border: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5); */
   /* border-radius: 0.278vh; */
@@ -15,9 +15,11 @@ section#main_shell {
   align-items: flex-start;
   justify-content: flex-start;
   overflow: hidden;
+  z-index: 1000;
 
   transition: width 0.5s cubic-bezier(0.85, 0.5, 0.85, 0.5),
-    height 0.5s cubic-bezier(0.85, 0.5, 0.85, 0.5);
+    height 0.5s cubic-bezier(0.85, 0.5, 0.85, 0.5),
+    top 0.5s cubic-bezier(0.85, 0.5, 0.85, 0.5);
 }
 
 h1#main_shell_greeting {
@@ -37,7 +39,9 @@ section#main_shell > h3.title {
   top: 0.74vh;
   left: 16.5vw;
   width: 66%;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 1, 1) 0.5s;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 1, 1) 0.5s,
+    width 0.5s cubic-bezier(0.85, 0.5, 0.85, 0.5),
+    left 0.5s cubic-bezier(0.85, 0.5, 0.85, 0.5);
 }
 
 section#main_shell > h3.title > p {
@@ -143,6 +147,7 @@ div#main_shell_innercontainer pre#terminal4 {
   position: relative;
   user-select: none;
   -webkit-user-select: none;
+  height: 100%;
 }
 
 .xterm.focus,

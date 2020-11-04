@@ -187,6 +187,15 @@ div.modal_popup summary + table {
   margin-top: 1.5vh;
 }
 
+div.modal_html {
+  height: 81vh;
+  overflow-y: scroll;
+}
+
+div.modal_buttons {
+  padding: 0.8vh;
+}
+
 /* Settings editor modal */
 
 h6#settingsEditorStatus {

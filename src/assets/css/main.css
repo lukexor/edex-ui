@@ -79,3 +79,10 @@ section > h3.title:first-child::after {
   bottom: -0.555vh;
   height: 0.46vh;
 }
+
+.unset_clip {
+  clip-path: unset;
+}
+.align_start {
+  align-self: flex-start;
+}

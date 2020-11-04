@@ -405,32 +405,28 @@ async function initUI() {
   document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
         <h3 class="title" style="opacity:0;"><p>PANEL</p><p>SYSTEM</p></h3>
     </section>
-    <section id="main_shell" style="height:0%;width:0%;opacity:0;margin-bottom:30vh;" augmented-ui="bl-clip tr-clip exe">
+    <section id="main_shell" style="height:0%;width:0%;opacity:0;" augmented-ui="bl-clip tr-clip exe">
         <h3 class="title" style="opacity:0;"><p>TERMINAL</p><p>MAIN SHELL</p></h3>
         <h1 id="main_shell_greeting"></h1>
     </section>
     <section class="mod_column" id="mod_column_right">
         <h3 class="title" style="opacity:0;"><p>PANEL</p><p>NETWORK</p></h3>
     </section>
-    <section id="filesystem" style="width: 0px;" class="${
+    <section id="filesystem" style="width: 0px; display:none" class="${
       window.settings.hideDotfiles ? "hideDotfiles" : ""
     } ${window.settings.fsListView ? "list-view" : ""}">
     </section>
-    <section id="keyboard" style="opacity:0;">
+    <section id="keyboard" style="display:none">
     </section>`;
 
   await _delay(10);
 
   window.audioManager.expand.play();
-  document
-    .getElementById("main_shell")
-    .setAttribute("style", "height:0%;margin-bottom:30vh;");
+  document.getElementById("main_shell").setAttribute("style", "height:0%;");
 
   await _delay(500);
 
-  document
-    .getElementById("main_shell")
-    .setAttribute("style", "margin-bottom: 30vh;");
+  document.getElementById("main_shell").setAttribute("style", "");
 
   await _delay(700);
 
@@ -442,7 +438,8 @@ async function initUI() {
 
   await _delay(10);
 
-  document.getElementById("main_shell").setAttribute("style", "");
+  document.getElementById("main_shell").setAttribute("style", "top: 0");
+  document.getElementById("main_shell").classList.add("align_start");
 
   await _delay(270);
 
@@ -482,9 +479,8 @@ async function initUI() {
   await _delay(400);
 
   greeter.remove();
-  document
-    .getElementById("main_shell")
-    .setAttribute("style", "clip-path: unset");
+  document.getElementById("main_shell").setAttribute("style", "");
+  document.getElementById("main_shell").classList.add("unset_clip");
   document
     .querySelectorAll("h3.title")
     .forEach((el) => el.setAttribute("style", ""));
@@ -665,7 +661,6 @@ window.focusShellTab = (number) => {
           parentId: "terminal" + number,
           port,
         });
-
         window.term[number].onclose = (e) => {
           delete window.term[number].onprocesschange;
           document.getElementById("shell_tab" + number).innerHTML =
@@ -689,6 +684,42 @@ window.focusShellTab = (number) => {
           window.focusShellTab(number);
         }, 500);
       }
+    });
+  }
+};
+
+window.toggleMaxShell = async () => {
+  const mainShell = document.getElementById("main_shell");
+  const filesystem = document.getElementById("filesystem");
+  const keyboard = document.getElementById("keyboard");
+  const mainTitle = document.querySelector("#main_shell h3.title");
+  const modColumns = Array.from(document.getElementsByClassName("mod_column"));
+  if (!window.shellIsMaximized) {
+    window.shellIsMaximized = true;
+    modColumns.forEach((el) => {
+      el.setAttribute("class", "mod_column");
+    });
+    mainTitle.setAttribute("style", "left: 0; width: 98%;");
+    mainShell.setAttribute(
+      "style",
+      "height: 92%; width: 98%; margin-bottom:3vh;"
+    );
+    filesystem.setAttribute("style", "opacity: 0;");
+    keyboard.setAttribute("style", "opacity: 0;");
+    await _delay(500);
+    filesystem.setAttribute("style", "display: none;");
+    keyboard.setAttribute("style", "display: none;");
+  } else {
+    window.shellIsMaximized = false;
+    filesystem.setAttribute("style", "opacity: 0;");
+    keyboard.setAttribute("style", "opacity: 0;");
+    await _delay(500);
+    mainTitle.setAttribute("style", "");
+    mainShell.setAttribute("style", "");
+    filesystem.setAttribute("style", "opacity: 1;");
+    keyboard.setAttribute("style", "opacity: 1;");
+    modColumns.forEach((el) => {
+      el.setAttribute("class", "mod_column activated");
     });
   }
 };
@@ -1063,6 +1094,7 @@ window.openShortcutsHelp = () => {
       "Switch to the previous opened terminal tab (right to left order).",
     TAB_X:
       "Switch to terminal tab <strong>X</strong>, or create it if it hasn't been opened yet.",
+    MAX_SHELL: "Toggle maximized view of the terminal.",
     SETTINGS: "Open the settings editor.",
     SHORTCUTS: "List and edit available keyboard shortcuts.",
     FUZZY_SEARCH: "Search for entries in the current working directory.",
@@ -1215,6 +1247,9 @@ window.useAppShortcut = (action) => {
       return true;
     case "TAB_5":
       window.focusShellTab(4);
+      return true;
+    case "MAX_SHELL":
+      window.toggleMaxShell();
       return true;
     case "SETTINGS":
       window.openSettings();
