@@ -259,6 +259,11 @@ class Terminal {
         this._lastTouch = null;
       });
 
+      parent.addEventListener("dblclick", (e) => {
+        if (this.term.hasSelection()) {
+          document.execCommand("copy");
+        }
+      });
       document
         .querySelector(".xterm-helper-textarea")
         .addEventListener("keydown", (e) => {
