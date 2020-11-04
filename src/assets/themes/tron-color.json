@@ -32,7 +32,7 @@
     "foreground": "#aacfd1",
     "background": "#05080d",
     "cursor": "#aacfd1",
-    "cursorAccent": "#aacfd1",
+    "cursorAccent": "#000000",
     "selection": "rgba(170,207,209,0.3)"
   },
   "globe": {

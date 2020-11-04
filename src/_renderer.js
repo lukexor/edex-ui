@@ -722,6 +722,8 @@ window.toggleMaxShell = async () => {
       el.setAttribute("class", "mod_column activated");
     });
   }
+  await _delay(600);
+  window.term[window.currentTerm].fit();
 };
 
 const closeModal = (title) => {
