@@ -252,14 +252,7 @@ class Terminal {
           this.term.scrollLines(-Math.round(deltaY / 10));
         }
       });
-      parent.addEventListener("touchend", (e) => {
-        this._lastTouch = null;
-      });
-      parent.addEventListener("touchcancel", (e) => {
-        this._lastTouch = null;
-      });
-
-      parent.addEventListener("dblclick", (e) => {
+      this.term.onSelectionChange(() => {
         if (this.term.hasSelection()) {
           document.execCommand("copy");
         }
