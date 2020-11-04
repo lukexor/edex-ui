@@ -1,9 +1,14 @@
 class FuzzyFinder {
   constructor() {
+    const title = "Fuzzy cwd file search";
     if (
       document.getElementById("fuzzyFinder") ||
       document.getElementById("settingsEditor")
     ) {
+      const modal = Object.values(window.modals).find((m) => m.title === title);
+      if (modal) {
+        modal.close();
+      }
       return false;
     }
 
@@ -12,7 +17,7 @@ class FuzzyFinder {
     this.disp = new Modal(
       {
         type: "custom",
-        title: "Fuzzy cwd file search",
+        title,
         html: `<input type="search" id="fuzzyFinder" placeholder="Search file in cwd..." />
                 <ul id="fuzzyFinder-results">
                     <li class="fuzzyFinderMatchSelected"></li>
