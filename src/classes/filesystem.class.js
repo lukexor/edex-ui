@@ -65,12 +65,13 @@ class FilesystemDisplay {
     this.fsBlock = {};
     this.dirpath = "";
     this.failed = false;
+    this._enabled = true;
     this._noTracking = false;
     this._runNextTick = false;
     this._reading = false;
 
     this._timer = setInterval(() => {
-      if (this._runNextTick === true) {
+      if (this._enabled && this._runNextTick === true) {
         this._runNextTick = false;
         this.readFS(this.dirpath);
       }

@@ -32,8 +32,11 @@ class RAMwatcher {
 
     // Init updaters
     this.updateInfo();
+    this._enabled = true;
     this.infoUpdater = setInterval(() => {
-      this.updateInfo();
+      if (this._enabled) {
+        this.updateInfo();
+      }
     }, 5000);
   }
   updateInfo() {

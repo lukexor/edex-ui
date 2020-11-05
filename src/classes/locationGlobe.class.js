@@ -21,6 +21,7 @@ class LocationGlobe {
 
     this.lastgeo = {};
     this.conns = [];
+    this._enabled = true;
 
     setTimeout(() => {
       let container = document.getElementById("mod_globe_innercontainer");
@@ -67,7 +68,7 @@ class LocationGlobe {
         if (window.mods.globe.globe) {
           window.mods.globe.globe.tick();
         }
-        if (window.mods.globe._animate) {
+        if (window.mods.globe._enabled && window.mods.globe._animate) {
           setTimeout(() => {
             try {
               requestAnimationFrame(window.mods.globe._animate);
@@ -135,12 +136,16 @@ class LocationGlobe {
     setTimeout(() => {
       this.updateLoc();
       this.locUpdater = setInterval(() => {
-        this.updateLoc();
+        if (this._enabled) {
+          this.updateLoc();
+        }
       }, 2000);
 
       this.updateConns();
       this.connsUpdater = setInterval(() => {
-        this.updateConns();
+        if (this._enabled) {
+          this.updateConns();
+        }
       }, 3000);
     }, 4000);
   }

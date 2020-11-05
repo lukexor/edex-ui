@@ -14,6 +14,7 @@ class Cpuinfo {
 
     this.series = [];
     this.charts = [];
+    this._enabled = true;
     window.si.cpu().then((data) => {
       let divide = Math.floor(data.cores / 2);
       this.divide = divide;
@@ -113,18 +114,26 @@ class Cpuinfo {
       this.updateCPUspeed();
       this.updateCPUtasks();
       this.loadUpdater = setInterval(() => {
-        this.updateCPUload();
+        if (this._enabled) {
+          this.updateCPUload();
+        }
       }, 500);
       if (process.platform !== "win32") {
         this.tempUpdater = setInterval(() => {
-          this.updateCPUtemp();
+          if (this._enabled) {
+            this.updateCPUtemp();
+          }
         }, 2000);
       }
       this.speedUpdater = setInterval(() => {
-        this.updateCPUspeed();
+        if (this._enabled) {
+          this.updateCPUspeed();
+        }
       }, 1000);
       this.tasksUpdater = setInterval(() => {
-        this.updateCPUtasks();
+        if (this._enabled) {
+          this.updateCPUtasks();
+        }
       }, 5000);
     });
   }

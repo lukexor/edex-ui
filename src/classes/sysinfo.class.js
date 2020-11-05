@@ -36,14 +36,19 @@ class Sysinfo {
             </div>
         </div>`;
 
+    this._enabled = true;
     this.updateDate();
     this.updateUptime();
     this.uptimeUpdater = setInterval(() => {
-      this.updateUptime();
+      if (this._enabled) {
+        this.updateUptime();
+      }
     }, 60000);
     this.updateBattery();
     this.batteryUpdater = setInterval(() => {
-      this.updateBattery();
+      if (this._enabled) {
+        this.updateBattery();
+      }
     }, 5000);
   }
   updateDate() {

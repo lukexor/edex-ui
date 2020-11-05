@@ -11,9 +11,12 @@ class Toplist {
 
     this.parent.append(this._element);
 
+    this._enabled = true;
     this.updateList();
     this.listUpdater = setInterval(() => {
-      this.updateList();
+      if (this._enabled) {
+        this.updateList();
+      }
     }, 5000);
   }
   updateList() {

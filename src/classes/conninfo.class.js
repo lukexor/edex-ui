@@ -74,9 +74,12 @@ class Conninfo {
     );
 
     // Init updater
+    this._enabled = true;
     this.updateInfo();
     this.infoUpdater = setInterval(() => {
-      this.updateInfo();
+      if (this._enabled) {
+        this.updateInfo();
+      }
     }, 2000);
   }
   updateInfo() {

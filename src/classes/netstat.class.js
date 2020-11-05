@@ -25,6 +25,7 @@ class Netstat {
         </div>`;
 
     this.offline = false;
+    this._enabled = true;
     this.lastconn = { finished: false }; // Prevent geoip lookup attempt until maxminddb is loaded
     this.iface = null;
     this.failedAttempts = {};
@@ -38,7 +39,9 @@ class Netstat {
     // Init updaters
     this.updateInfo();
     this.infoUpdater = setInterval(() => {
-      this.updateInfo();
+      if (this._enabled) {
+        this.updateInfo();
+      }
     }, 5000);
 
     // Init GeoIP integrated backend

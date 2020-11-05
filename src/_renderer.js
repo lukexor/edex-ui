@@ -709,6 +709,15 @@ window.toggleMaxShell = async () => {
     await _delay(500);
     filesystem.setAttribute("style", "display: none;");
     keyboard.setAttribute("style", "display: none;");
+
+    window.fsDisp._enabled = false;
+    window.mods.cpuinfo._enabled = false;
+    window.mods.netstat._enabled = false;
+    window.mods.globe._enabled = false;
+    window.mods.ramwatcher._enabled = false;
+    window.mods.sysinfo._enabled = false;
+    window.mods.conninfo._enabled = false;
+    window.mods.toplist._enabled = false;
   } else {
     window.shellIsMaximized = false;
     filesystem.setAttribute("style", "opacity: 0;");
@@ -721,6 +730,16 @@ window.toggleMaxShell = async () => {
     modColumns.forEach((el) => {
       el.setAttribute("class", "mod_column activated");
     });
+
+    window.fsDisp._enabled = true;
+    window.mods.cpuinfo._enabled = true;
+    window.mods.netstat._enabled = true;
+    window.mods.globe._enabled = true;
+    requestAnimationFrame(window.mods.globe._animate);
+    window.mods.ramwatcher._enabled = true;
+    window.mods.sysinfo._enabled = true;
+    window.mods.conninfo._enabled = true;
+    window.mods.toplist._enabled = true;
   }
   await _delay(600);
   window.term[window.currentTerm].fit();
