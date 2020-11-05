@@ -141,7 +141,7 @@ class LocationGlobe {
       this.updateConns();
       this.connsUpdater = setInterval(() => {
         this.updateConns();
-      }, 5000);
+      }, 3000);
     }, 4000);
   }
 
