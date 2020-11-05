@@ -95,7 +95,7 @@ if (!fs.existsSync(settingsFile)) {
         audioVolume: 1.0,
         disableFeedbackAudio: false,
         clockHours: 24,
-        pingAddr: "1.1.1.1",
+        pingAddr: "1.0.0.1",
         port: 3000,
         nointro: false,
         nocursor: false,

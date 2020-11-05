@@ -884,7 +884,7 @@ window.toggleSettings = async () => {
                         <td>pingAddr</td>
                         <td>IPv4 address to test Internet connectivity</td>
                         <td><input type="text" id="settingsEditor-pingAddr" value="${
-                          window.settings.pingAddr || "1.1.1.1"
+                          window.settings.pingAddr || "1.0.0.1"
                         }"></td>
                     </tr>
                     <tr>
