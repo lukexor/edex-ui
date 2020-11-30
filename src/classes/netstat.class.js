@@ -57,6 +57,10 @@ class Netstat {
       .then((lookup) => {
         this.geoLookup = lookup;
         this.lastconn.finished = true;
+      })
+      .catch((err) => {
+        console.error(err);
+        this.offline = true;
       });
   }
   updateInfo() {
