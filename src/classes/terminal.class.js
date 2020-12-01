@@ -194,47 +194,55 @@ class Terminal {
       let sockHost = opts.host || "127.0.0.1";
       let sockPort = this.port;
 
-      this.socket = new WebSocket("ws://" + sockHost + ":" + sockPort);
-      this.socket.onopen = () => {
-        let attachAddon = new AttachAddon(this.socket);
-        this.term.loadAddon(attachAddon);
-        this.fit();
-      };
-      this.socket.onerror = (e) => {
-        throw JSON.stringify(e);
-      };
-      this.socket.onclose = (e) => {
-        if (this.onclose) {
+      this.onSocketClose = (e) => {
+        if (this.socket && this.onclose) {
           this.onclose(e);
         }
+
+        this.socket = new WebSocket("ws://" + sockHost + ":" + sockPort);
+
+        this.socket.onopen = () => {
+          let attachAddon = new AttachAddon(this.socket);
+          this.term.loadAddon(attachAddon);
+          this.fit();
+        };
+
+        this.socket.onclose = this.onSocketClose;
+
+        this.socket.onerror = (e) => {
+          throw JSON.stringify(e);
+        };
+
+        this.socket.addEventListener("message", (e) => {
+          let d = Date.now();
+
+          if (d - this.lastSoundFX > 30) {
+            window.audioManager.stdout.play();
+            this.lastSoundFX = d;
+          }
+          if (d - this.lastRefit > 10000) {
+            this.fit();
+          }
+
+          // See #397
+          if (!window.settings.experimentalGlobeFeatures) return;
+          let ips = e.data.match(
+            /((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/g
+          );
+          if (ips !== null && ips.length >= 1) {
+            ips = ips.filter((val, index, self) => {
+              return self.indexOf(val) === index;
+            });
+            ips.forEach((ip) => {
+              window.mods.globe.addTemporaryConnectedMarker(ip);
+            });
+          }
+        });
       };
 
+      this.onSocketClose();
+
       this.lastSoundFX = Date.now();
-      this.socket.addEventListener("message", (e) => {
-        let d = Date.now();
-
-        if (d - this.lastSoundFX > 30) {
-          window.audioManager.stdout.play();
-          this.lastSoundFX = d;
-        }
-        if (d - this.lastRefit > 10000) {
-          this.fit();
-        }
-
-        // See #397
-        if (!window.settings.experimentalGlobeFeatures) return;
-        let ips = e.data.match(
-          /((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/g
-        );
-        if (ips !== null && ips.length >= 1) {
-          ips = ips.filter((val, index, self) => {
-            return self.indexOf(val) === index;
-          });
-          ips.forEach((ip) => {
-            window.mods.globe.addTemporaryConnectedMarker(ip);
-          });
-        }
-      });
 
       let parent = document.getElementById(opts.parentId);
       parent.addEventListener("wheel", (e) => {
