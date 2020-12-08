@@ -48,20 +48,21 @@ class Netstat {
     this.geoLookup = {
       get: () => null,
     };
-    let geolite2 = require("geolite2-redist");
-    let maxmind = require("maxmind");
-    geolite2
-      .open("GeoLite2-City", (path) => {
-        return maxmind.open(path);
-      })
-      .then((lookup) => {
-        this.geoLookup = lookup;
-        this.lastconn.finished = true;
-      })
-      .catch((err) => {
-        console.error(err);
-        this.offline = true;
-      });
+    // TODO: Fix intermittent geolite ENOENT error
+    // let geolite2 = require("geolite2-redist");
+    // let maxmind = require("maxmind");
+    // geolite2
+    //   .open("GeoLite2-City", (path) => {
+    //     return maxmind.open(path);
+    //   })
+    //   .then((lookup) => {
+    //     this.geoLookup = lookup;
+    //     this.lastconn.finished = true;
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     this.offline = true;
+    //   });
   }
   updateInfo() {
     window.si.networkInterfaces().then(async (data) => {
